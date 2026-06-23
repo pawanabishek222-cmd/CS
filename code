@@ -1,0 +1,120 @@
+
+orders = []
+
+def add_order():
+    order_id = input("Enter Order ID: ")
+    customer_name = input("Enter Customer Name: ")
+    food_item = input("Enter Food Item: ")
+    amount = float(input("Enter Amount: "))
+
+    order = {
+        "Order ID": order_id,
+        "Customer Name": customer_name,
+        "Food Item": food_item,
+        "Amount": amount,
+        "Status": "Pending"
+    }
+
+    orders.append(order)
+    print("Order added successfully!")
+
+def view_orders():
+    if len(orders) == 0:
+        print("No orders available.")
+        return
+
+    print("Orders List")
+    for order in orders:
+        print(f"Order ID: {order['Order ID']}")
+        print(f"Customer Name: {order['Customer Name']}")
+        print(f"Food Item: {order['Food Item']}")
+        print(f"Amount: ${order['Amount']:.2f}")
+        print(f"Status: {order['Status']}")
+        print("----------------------")
+    print()
+
+def search_order():
+    search_id = input("Enter Order ID to search: ")
+
+    for order in orders:
+        if order["Order ID"] == search_id:
+            print("\nOrder Found:")
+            print(f"Customer Name: {order['Customer Name']}")
+            print(f"Food Item: {order['Food Item']}")
+            print(f"Amount: ${order['Amount']:.2f}")
+            print(f"Status: {order['Status']}")
+            return
+
+    print("Order not found.")
+
+def update_order_status():
+    update_id = input("Enter Order ID to update: ")
+
+    for order in orders:
+        if order["Order ID"] == update_id:
+            print(f"Current Status: {order['Status']}")
+            new_status = input("Enter new status (Pending/Completed): ")
+
+            if new_status.lower() == "pending":
+                order["Status"] = "Pending"
+                print("Status updated successfully!")
+            elif new_status.lower() == "completed":
+                order["Status"] = "Completed"
+                print("Status updated successfully!")
+            else:
+                print("Invalid status entered.")
+            return
+
+    print("Order not found.")
+
+def calculate_total_sales():
+    total_sales = 0
+
+    for order in orders:
+        total_sales += order["Amount"]
+
+    print(f"Total Sales: ${total_sales:.2f}")
+
+def count_completed_orders():
+    count = 0
+
+    for order in orders:
+        if order["Status"] == "Completed":
+            count += 1
+
+    print(f"Completed Orders: {count}")
+def main():
+    while True:
+        print("Restaurant Order Management System")
+        print("1. Add Order")
+        print("2. View Orders")
+        print("3. Search Order")
+        print("4. Update Order Status")
+        print("5. Calculate Total Sales")
+        print("6. Count Completed Orders")
+        print("7. Exit")
+
+        choice = input("Enter your choice (1-7): ")
+
+        if choice == "1":
+            add_order()
+        elif choice == "2":
+            view_orders()
+        elif choice == "3":
+            search_order()
+        elif choice == "4":
+            update_order_status()
+        elif choice == "5":
+            calculate_total_sales()
+        elif choice == "6":
+            count_completed_orders()
+        elif choice == "7":
+            print("Thank you for using the system!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+
+main()
+
